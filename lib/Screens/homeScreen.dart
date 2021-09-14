@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hitch/constants/theme.dart';
+import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 class homeScreen extends StatefulWidget {
@@ -23,36 +24,24 @@ class _homeScreenState extends State<homeScreen> {
     'images/imageonec.jpg',
     'images/login-image.png',
   ];
-
+  late Decision decision;
   @override
   void initState() {
     for (int i = 0; i < _imageUrlStrings.length; i++) {
       _swipeItems.add(SwipeItem(
           content: Content(imageUrl: _imageUrlStrings[i]),
           likeAction: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Liked "),
-              duration: Duration(milliseconds: 500),
-            ));
+            print('like slide');
           },
-          nopeAction: () {
-            _scaffoldKey.currentState!.showSnackBar(SnackBar(
-              content: Text("Nope "),
-              duration: Duration(milliseconds: 500),
-            ));
-          },
-          superlikeAction: () {
-            _scaffoldKey.currentState!.showSnackBar(SnackBar(
-              content: Text("Superliked "),
-              duration: Duration(milliseconds: 500),
-            ));
-          }));
+          nopeAction: () {},
+          superlikeAction: () {}));
     }
 
     _matchEngine = MatchEngine(swipeItems: _swipeItems);
     super.initState();
   }
 
+  bool like = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,14 +174,25 @@ class _homeScreenState extends State<homeScreen> {
                                 // color: _swipeItems[index].content.color,
                                 borderRadius: BorderRadius.circular(25)),
                             alignment: Alignment.topLeft,
-                            child: (_matchEngine.currentItem!.decision
-                                        .toString() ==
-                                    Decision.like.toString())
-                                ? Text(
-                                    'Like',
-                                    style: TextStyle(color: Colors.cyan),
-                                  )
-                                : Text('')),
+                            child: Container()),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.transparent,
+
+                                      Colors.black.withOpacity(0.5),
+                                      // Color(0xffC884BF).withOpacity(0.2),
+                                      // Color(0xffC884BF).withOpacity(0.4)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter)),
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
@@ -209,11 +209,17 @@ class _homeScreenState extends State<homeScreen> {
                                     children: [
                                       Text(
                                         'Name, ',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Text(
                                         'Age    ',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Icon(
                                         Icons.verified_outlined,
@@ -233,23 +239,6 @@ class _homeScreenState extends State<homeScreen> {
                                 ],
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: 210,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Colors.transparent,
-                                      Colors.transparent,
-                                      Color(0xffC884BF).withOpacity(0.2),
-                                      Color(0xffC884BF).withOpacity(0.4)
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter)),
                           ),
                         ),
                         Align(
@@ -382,7 +371,7 @@ class _swipeCardBtnsState extends State<swipeCardBtns> {
           decoration: BoxDecoration(
               color: contColor,
               borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: widget.color, width: 2)),
+              border: Border.all(color: widget.color, width: 1)),
           child: Center(
             child: Icon(widget.iconData,
                 size: widget.iconSize,

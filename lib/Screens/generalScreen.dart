@@ -4,6 +4,7 @@ import 'package:hitch/Screens/SignUpScreen.dart';
 import 'package:hitch/Screens/homeScreen.dart';
 import 'package:hitch/Screens/profileSignUp.dart';
 import 'package:hitch/Screens/verifyOtp.dart';
+import 'package:hitch/Screens/yourMatchesScreen.dart';
 import 'package:hitch/constants/theme.dart';
 
 class generalScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _generalScreenState extends State<generalScreen> {
 
   List<Widget> _pages() => <Widget>[
         homeScreen(),
-        homeScreen(),
+        yourMatchesScreen(),
         homeScreen(),
         homeScreen(),
         // profileSignUpScreen(),
