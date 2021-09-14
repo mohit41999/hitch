@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hitch/constants/theme.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
@@ -14,35 +15,35 @@ class _homeScreenState extends State<homeScreen> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  List<String> _names = ["Red", "Blue", "Green", "Yellow", "Orange"];
-  List<Color> _colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange
+
+  List<String> _imageUrlStrings = [
+    'images/r.jpg',
+    'images/q.jpg',
+    'images/imageonep.jpg',
+    'images/imageonec.jpg',
+    'images/login-image.png',
   ];
 
   @override
   void initState() {
-    for (int i = 0; i < _names.length; i++) {
+    for (int i = 0; i < _imageUrlStrings.length; i++) {
       _swipeItems.add(SwipeItem(
-          content: Content(text: _names[i], color: _colors[i]),
+          content: Content(imageUrl: _imageUrlStrings[i]),
           likeAction: () {
-            _scaffoldKey.currentState!.showSnackBar(SnackBar(
-              content: Text("Liked ${_names[i]}"),
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Liked "),
               duration: Duration(milliseconds: 500),
             ));
           },
           nopeAction: () {
             _scaffoldKey.currentState!.showSnackBar(SnackBar(
-              content: Text("Nope ${_names[i]}"),
+              content: Text("Nope "),
               duration: Duration(milliseconds: 500),
             ));
           },
           superlikeAction: () {
             _scaffoldKey.currentState!.showSnackBar(SnackBar(
-              content: Text("Superliked ${_names[i]}"),
+              content: Text("Superliked "),
               duration: Duration(milliseconds: 500),
             ));
           }));
@@ -57,6 +58,7 @@ class _homeScreenState extends State<homeScreen> {
     return Scaffold(
         backgroundColor: appThemeColor,
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -118,6 +120,9 @@ class _homeScreenState extends State<homeScreen> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 15,
+              ),
               TextField(
                 decoration: InputDecoration(
                   isCollapsed: true,
@@ -154,7 +159,11 @@ class _homeScreenState extends State<homeScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
               Container(
+                margin: EdgeInsets.all(0),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25)),
@@ -164,38 +173,143 @@ class _homeScreenState extends State<homeScreen> {
                     return Stack(
                       children: [
                         Container(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          decoration: BoxDecoration(
-                              color: _swipeItems[index].content.color,
-                              borderRadius: BorderRadius.circular(25)),
-                          alignment: Alignment.center,
-                          child: Text(
-                            _swipeItems[index].content.text,
-                            style: TextStyle(fontSize: 100),
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      _swipeItems[index].content.imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                                // color: _swipeItems[index].content.color,
+                                borderRadius: BorderRadius.circular(25)),
+                            alignment: Alignment.topLeft,
+                            child: (_matchEngine.currentItem!.decision
+                                        .toString() ==
+                                    Decision.like.toString())
+                                ? Text(
+                                    'Like',
+                                    style: TextStyle(color: Colors.cyan),
+                                  )
+                                : Text('')),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Name, ',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        'Age    ',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Icon(
+                                        Icons.verified_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      Icon(
+                                        Icons.info,
+                                        size: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'Dancer, Friendly, Dancer, Friendly Dancer, Friendly, Lorem ipsum dolor sit amet consectetur adipisicing elit',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
+                          child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.transparent,
+                                      Color(0xffC884BF).withOpacity(0.2),
+                                      Color(0xffC884BF).withOpacity(0.4)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter)),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                swipeCardBtns(
+                                  color: Color(0xffEECA59),
+                                  iconData: Icons.refresh,
                                   onPressed: () {
-                                    _matchEngine.currentItem?.nope();
+                                    setState(() {
+                                      _matchEngine.rewindMatch();
+                                    });
                                   },
-                                  child: Text("Nope")),
-                              ElevatedButton(
+                                ),
+                                swipeCardBtns(
+                                  contSize: 40,
+                                  iconSize: 25,
+                                  color: Color(0xffF54561),
+                                  iconData: Icons.close,
                                   onPressed: () {
-                                    _matchEngine.currentItem?.superLike();
+                                    setState(() {
+                                      _matchEngine.currentItem?.nope();
+                                    });
                                   },
-                                  child: Text("Superlike")),
-                              ElevatedButton(
+                                ),
+                                swipeCardBtns(
+                                  color: Color(0xff33BAEF),
+                                  iconData: Icons.star_rate,
                                   onPressed: () {
-                                    _matchEngine.currentItem?.like();
+                                    setState(() {
+                                      _matchEngine.currentItem?.superLike();
+                                    });
                                   },
-                                  child: Text("Like"))
-                            ],
+                                ),
+                                swipeCardBtns(
+                                  contSize: 40,
+                                  iconSize: 25,
+                                  color: Color(0xff1FDEB3),
+                                  iconData: Icons.favorite,
+                                  onPressed: () {
+                                    setState(() {
+                                      _matchEngine.currentItem?.like();
+                                    });
+                                  },
+                                ),
+                                swipeCardBtns(
+                                  color: Color(0xffAF43EE),
+                                  iconData: Icons.flash_on_sharp,
+                                  onPressed: () {
+                                    setState(() {
+                                      _matchEngine.currentItem?.nope();
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -215,9 +329,71 @@ class _homeScreenState extends State<homeScreen> {
   }
 }
 
-class Content {
-  final String text;
+class swipeCardBtns extends StatefulWidget {
   final Color color;
+  final IconData iconData;
+  final double contSize;
+  final double iconSize;
 
-  Content({required this.text, required this.color});
+  final Function onPressed;
+
+  const swipeCardBtns({
+    Key? key,
+    required this.color,
+    required this.onPressed,
+    required this.iconData,
+    this.contSize = 30,
+    this.iconSize = 20,
+  }) : super(key: key);
+
+  @override
+  _swipeCardBtnsState createState() => _swipeCardBtnsState();
+}
+
+class _swipeCardBtnsState extends State<swipeCardBtns> {
+  Color contColor = Colors.transparent;
+  bool iconcolor = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onLongPress: () {
+          setState(() {
+            contColor = widget.color;
+            iconcolor = true;
+            // widget.onPressed();
+          });
+        },
+        onLongPressEnd: (value) {
+          setState(() {
+            // contColor = Colors.transparent;
+            // iconcolor = false;
+            widget.onPressed();
+          });
+        },
+        onTap: () {
+          widget.onPressed();
+          contColor = widget.color;
+          iconcolor = true;
+        },
+        child: Container(
+          height: widget.contSize,
+          width: widget.contSize,
+          decoration: BoxDecoration(
+              color: contColor,
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(color: widget.color, width: 2)),
+          child: Center(
+            child: Icon(widget.iconData,
+                size: widget.iconSize,
+                color: (iconcolor) ? Colors.white : widget.color),
+          ),
+        ));
+  }
+}
+
+class Content {
+  final String imageUrl;
+
+  Content({required this.imageUrl});
 }
