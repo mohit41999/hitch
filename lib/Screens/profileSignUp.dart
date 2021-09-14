@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hitch/Screens/Home.dart';
+import 'package:hitch/Screens/generalScreen.dart';
 
 class profileSignUpScreen extends StatefulWidget {
   const profileSignUpScreen({Key? key}) : super(key: key);
@@ -14,25 +14,21 @@ class _profileSignUpScreenState extends State<profileSignUpScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xffFFE9F5),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Color(0xffFFE9F5),
-              child: Container(
-                child: Image.asset(
-                  'images/login-image.png',
-                ),
-              ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/imageonec.jpg'), fit: BoxFit.cover),
             ),
           ),
-          Expanded(
-            flex: 4,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
+              height: 500,
               decoration: BoxDecoration(
-                  color: Color(0xffF3BEDC),
+                  color: Color(0xffF3BEDC).withOpacity(0.7),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -149,7 +145,7 @@ class _profileSignUpScreenState extends State<profileSignUpScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => homeScreen()));
+                                        builder: (context) => generalScreen()));
                               });
                             },
                             child: Text(

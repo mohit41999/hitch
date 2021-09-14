@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hitch/Screens/verifyOtp.dart';
+import 'package:hitch/constants/theme.dart';
 
 class signUpScreen extends StatefulWidget {
   const signUpScreen({Key? key}) : super(key: key);
@@ -14,25 +15,20 @@ class _signUpScreenState extends State<signUpScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xffFFE9F5),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Color(0xffFFE9F5),
-              child: Container(
-                child: Image.asset(
-                  'images/login-image.png',
-                ),
-              ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/r.jpg'), fit: BoxFit.cover),
             ),
           ),
-          Expanded(
-            flex: 3,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
+              height: 450,
               decoration: BoxDecoration(
-                  color: Color(0xffF3BEDC),
+                  color: Color(0xffF3BEDC).withOpacity(0.7),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
@@ -82,7 +78,7 @@ class _signUpScreenState extends State<signUpScreen> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: Color(0xffFFE9F5),
+                                primary: appThemeColor,
                                 fixedSize: Size.fromHeight(50),
                                 //  side: BorderSide(),
                                 shape: RoundedRectangleBorder(

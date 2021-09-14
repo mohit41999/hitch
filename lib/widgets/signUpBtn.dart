@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hitch/constants/theme.dart';
 
 class signUpButton extends StatelessWidget {
   const signUpButton({
@@ -17,7 +18,7 @@ class signUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: Color(0xffFFE9F5),
+          primary: appThemeColor,
           fixedSize: Size.fromHeight(50),
           //  side: BorderSide(),
           shape:

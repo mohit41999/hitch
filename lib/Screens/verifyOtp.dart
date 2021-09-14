@@ -15,25 +15,20 @@ class _verifyOtpScreenState extends State<verifyOtpScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xffFFE9F5),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Color(0xffFFE9F5),
-              child: Container(
-                child: Image.asset(
-                  'images/login-image.png',
-                ),
-              ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/w.jpg'), fit: BoxFit.cover),
             ),
           ),
-          Expanded(
-            flex: 3,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
+              height: 450,
               decoration: BoxDecoration(
-                  color: Color(0xffF3BEDC),
+                  color: Color(0xffF3BEDC).withOpacity(0.7),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
