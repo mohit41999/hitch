@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hitch/Screens/MobileVerification-1.dart';
 import 'package:hitch/Screens/SignUpScreen.dart';
+import 'package:hitch/Screens/chatScreen.dart';
 import 'package:hitch/Screens/homeScreen.dart';
+import 'package:hitch/Screens/profileScreen.dart';
 import 'package:hitch/Screens/profileSignUp.dart';
 import 'package:hitch/Screens/verifyOtp.dart';
 import 'package:hitch/Screens/yourMatchesScreen.dart';
@@ -27,8 +29,8 @@ class _generalScreenState extends State<generalScreen> {
   List<Widget> _pages() => <Widget>[
         homeScreen(),
         yourMatchesScreen(),
-        homeScreen(),
-        homeScreen(),
+        chatScreen(),
+        profileScreen(),
         // profileSignUpScreen(),
         // signUpScreen(),
         // verifyOtpScreen()
@@ -37,9 +39,85 @@ class _generalScreenState extends State<generalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true,
+        resizeToAvoidBottomInset: false,
+        appBar: (_selectedIndex == 1)
+            ? AppBar(
+                elevation: 0,
+                backgroundColor: appThemeColor,
+                leading: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Color(0xff242424),
+                  ),
+                ),
+                title: Text(
+                  'My Matches',
+                  style: TextStyle(
+                    color: Color(0xff242424),
+                  ),
+                ),
+              )
+            : (_selectedIndex == 2)
+                ? AppBar(
+                    elevation: 0,
+                    backgroundColor: appThemeColor,
+                    leading: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = 0;
+                        });
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Color(0xff242424),
+                      ),
+                    ),
+                    title: Text(
+                      'My Chats',
+                      style: TextStyle(
+                        color: Color(0xff242424),
+                      ),
+                    ),
+                  )
+                : (_selectedIndex == 3)
+                    ? AppBar(
+                        elevation: 0,
+                        backgroundColor: appThemeColor,
+                        leading: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 0;
+                            });
+                          },
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Color(0xff242424),
+                          ),
+                        ),
+                        title: Text(
+                          'Profile',
+                          style: TextStyle(
+                            color: Color(0xff242424),
+                          ),
+                        ),
+                        actions: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.more_vert),
+                            color: Colors.black,
+                          ),
+                        ],
+                      )
+                    : null,
         backgroundColor: appThemeColor,
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Container(

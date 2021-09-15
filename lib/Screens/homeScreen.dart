@@ -13,6 +13,7 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  static const Color textFieldColor = Colors.white;
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -45,6 +46,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: appThemeColor,
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -74,21 +76,240 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                   Row(
                     children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.grey,
-                                    offset: Offset(1, 1))
-                              ]),
-                          child: Icon(
-                            CupertinoIcons.slider_horizontal_3,
-                            size: 30,
-                          )),
+                      GestureDetector(
+                        onTap: () {
+                          RangeValues distanceRange = RangeValues(0, 20);
+                          RangeValues ageBetween = RangeValues(18, 25);
+                          showModalBottomSheet<void>(
+                            context: context,
+                            barrierColor: Colors.white.withOpacity(0.2),
+                            backgroundColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return Container(
+                                    height: 1000,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffF3BEDC),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30),
+                                            topRight: Radius.circular(30))),
+                                    child: ListView(
+                                      physics: BouncingScrollPhysics(),
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                'Filters',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              TextField(
+                                                decoration: InputDecoration(
+                                                  enabled: true,
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .white)),
+                                                  labelText: 'Mutual Interests',
+                                                  hintText: 'Boys',
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .always,
+                                                  labelStyle: TextStyle(
+                                                      color: textFieldColor,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  hintStyle: TextStyle(
+                                                      color: textFieldColor
+                                                          .withOpacity(0.8),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Text('Select Age'),
+                                              Text('19 Years - 25 Years'),
+                                              RangeSlider(
+                                                values: ageBetween,
+                                                onChanged: (v) {
+                                                  setState(() {
+                                                    ageBetween = v;
+                                                  });
+                                                },
+                                                max: 50,
+                                                min: 18,
+                                                labels: RangeLabels(
+                                                  ageBetween.start
+                                                      .round()
+                                                      .toString(),
+                                                  ageBetween.end
+                                                      .round()
+                                                      .toString(),
+                                                ),
+                                              ),
+                                              TextField(
+                                                decoration: InputDecoration(
+                                                  enabled: true,
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .white)),
+                                                  labelText: 'Mutual Interests',
+                                                  hintText: 'Boys',
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .always,
+                                                  labelStyle: TextStyle(
+                                                      color: textFieldColor,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  hintStyle: TextStyle(
+                                                      color: textFieldColor
+                                                          .withOpacity(0.8),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              TextField(
+                                                decoration: InputDecoration(
+                                                  enabled: true,
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .white)),
+                                                  labelText: 'Mutual Interests',
+                                                  hintText: 'Boys',
+                                                  floatingLabelBehavior:
+                                                      FloatingLabelBehavior
+                                                          .always,
+                                                  labelStyle: TextStyle(
+                                                      color: textFieldColor,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  hintStyle: TextStyle(
+                                                      color: textFieldColor
+                                                          .withOpacity(0.8),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Text('Select Distance'),
+                                              Text('19 Years - 25 Years'),
+                                              RangeSlider(
+                                                values: distanceRange,
+                                                onChanged: (v) {
+                                                  setState(() {
+                                                    distanceRange = v;
+                                                  });
+                                                },
+                                                max: 200,
+                                                min: 0,
+                                                labels: RangeLabels(
+                                                  distanceRange.start
+                                                      .round()
+                                                      .toString(),
+                                                  distanceRange.end
+                                                      .round()
+                                                      .toString(),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            primary: Color(
+                                                                0xffFFE9F5),
+                                                            fixedSize:
+                                                                Size(170, 50),
+                                                            //  side: BorderSide(),
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50))),
+                                                    onPressed: () {
+                                                      setState(() {});
+                                                    },
+                                                    child: Text(
+                                                      'Reset',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff2A1F23),
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            primary: Color(
+                                                                0xffFFE9F5),
+                                                            fixedSize:
+                                                                Size(170, 50),
+                                                            //  side: BorderSide(),
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50))),
+                                                    onPressed: () {
+                                                      setState(() {});
+                                                    },
+                                                    child: Text(
+                                                      'Apply',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff2A1F23),
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 1,
+                                      spreadRadius: 1,
+                                      color: Colors.grey,
+                                      offset: Offset(1, 1))
+                                ]),
+                            child: Icon(
+                              CupertinoIcons.slider_horizontal_3,
+                              size: 30,
+                            )),
+                      ),
                       Container(
                           margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
                           decoration: BoxDecoration(
@@ -112,41 +333,59 @@ class _homeScreenState extends State<homeScreen> {
               SizedBox(
                 height: 15,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  isCollapsed: true,
-                  suffixIconConstraints:
-                      BoxConstraints(maxWidth: 50, maxHeight: 50),
-                  contentPadding: EdgeInsets.all(10),
-                  filled: true,
-                  fillColor: Color(0xffF3BEDC),
-                  suffixIcon: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xffF3BEDC),
-                          borderRadius: BorderRadius.circular(8),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        //isCollapsed: true,
+                        contentPadding: EdgeInsets.all(10),
+
+                        filled: true,
+                        fillColor: Color(0xffF3BEDC),
+
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            )),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: 'Search Partner',
+                        hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: Container(
+                        decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
+                                color: Color(0xff47004E26),
                                 blurRadius: 1,
                                 spreadRadius: 1,
-                                color: Colors.grey,
-                                offset: Offset(1, 1))
-                          ]),
-                      child: Icon(
-                        Icons.search,
-                        size: 30,
-                      )),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      )),
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  hintText: 'Search Partner',
-                  hintStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
+                                offset: Offset(2, 2))
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xffF3BEDC),
+                        ),
+                        height: 45,
+                        width: 45,
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        )),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ],
               ),
               SizedBox(
                 height: 15,
