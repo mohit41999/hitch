@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hitch/Screens/userInfoPage.dart';
 import 'package:hitch/constants/theme.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
+
+import 'notificationScreen.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -32,375 +35,449 @@ class _homeScreenState extends State<homeScreen> {
       _swipeItems.add(SwipeItem(
           content: Content(imageUrl: _imageUrlStrings[i]),
           likeAction: () {
-            print('like slide');
+            setState(() {
+              print('like slide22222222');
+            });
           },
           nopeAction: () {},
           superlikeAction: () {}));
     }
 
-    _matchEngine = MatchEngine(swipeItems: _swipeItems);
+    _matchEngine = MatchEngine(
+      swipeItems: _swipeItems,
+    );
     super.initState();
   }
 
   bool like = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: appThemeColor,
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('Location'),
-                          Icon(Icons.keyboard_arrow_down)
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on_outlined),
-                          Text(' Bali, '),
-                          Text('Indonesia'),
-                        ],
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          RangeValues distanceRange = RangeValues(0, 20);
-                          RangeValues ageBetween = RangeValues(18, 25);
-                          showModalBottomSheet<void>(
-                            context: context,
-                            barrierColor: Colors.white.withOpacity(0.2),
-                            backgroundColor: Colors.transparent,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return Container(
-                                    height: 1000,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xffF3BEDC),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30))),
-                                    child: ListView(
-                                      physics: BouncingScrollPhysics(),
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Text(
-                                                'Filters',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              TextField(
-                                                decoration: InputDecoration(
-                                                  enabled: true,
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
-                                                  labelText: 'Mutual Interests',
-                                                  hintText: 'Boys',
-                                                  floatingLabelBehavior:
-                                                      FloatingLabelBehavior
-                                                          .always,
-                                                  labelStyle: TextStyle(
-                                                      color: textFieldColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  hintStyle: TextStyle(
-                                                      color: textFieldColor
-                                                          .withOpacity(0.8),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Text('Select Age'),
-                                              Text('19 Years - 25 Years'),
-                                              RangeSlider(
-                                                values: ageBetween,
-                                                onChanged: (v) {
-                                                  setState(() {
-                                                    ageBetween = v;
-                                                  });
-                                                },
-                                                max: 50,
-                                                min: 18,
-                                                labels: RangeLabels(
-                                                  ageBetween.start
-                                                      .round()
-                                                      .toString(),
-                                                  ageBetween.end
-                                                      .round()
-                                                      .toString(),
-                                                ),
-                                              ),
-                                              TextField(
-                                                decoration: InputDecoration(
-                                                  enabled: true,
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
-                                                  labelText: 'Mutual Interests',
-                                                  hintText: 'Boys',
-                                                  floatingLabelBehavior:
-                                                      FloatingLabelBehavior
-                                                          .always,
-                                                  labelStyle: TextStyle(
-                                                      color: textFieldColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  hintStyle: TextStyle(
-                                                      color: textFieldColor
-                                                          .withOpacity(0.8),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TextField(
-                                                decoration: InputDecoration(
-                                                  enabled: true,
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
-                                                  labelText: 'Mutual Interests',
-                                                  hintText: 'Boys',
-                                                  floatingLabelBehavior:
-                                                      FloatingLabelBehavior
-                                                          .always,
-                                                  labelStyle: TextStyle(
-                                                      color: textFieldColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  hintStyle: TextStyle(
-                                                      color: textFieldColor
-                                                          .withOpacity(0.8),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Text('Select Distance'),
-                                              Text('19 Years - 25 Years'),
-                                              RangeSlider(
-                                                values: distanceRange,
-                                                onChanged: (v) {
-                                                  setState(() {
-                                                    distanceRange = v;
-                                                  });
-                                                },
-                                                max: 200,
-                                                min: 0,
-                                                labels: RangeLabels(
-                                                  distanceRange.start
-                                                      .round()
-                                                      .toString(),
-                                                  distanceRange.end
-                                                      .round()
-                                                      .toString(),
-                                                ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            primary: Color(
-                                                                0xffFFE9F5),
-                                                            fixedSize:
-                                                                Size(170, 50),
-                                                            //  side: BorderSide(),
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50))),
-                                                    onPressed: () {
-                                                      setState(() {});
-                                                    },
-                                                    child: Text(
-                                                      'Reset',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Color(0xff2A1F23),
-                                                          fontSize: 20),
-                                                    ),
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: appThemeColor,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text('Location'),
+                            Icon(Icons.keyboard_arrow_down)
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on_outlined),
+                            Text(' Bali, '),
+                            Text('Indonesia'),
+                          ],
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            RangeValues distanceRange = RangeValues(0, 20);
+                            RangeValues ageBetween = RangeValues(18, 25);
+                            showModalBottomSheet<void>(
+                              context: context,
+                              barrierColor: Colors.white.withOpacity(0.2),
+                              backgroundColor: Colors.transparent,
+                              builder: (BuildContext context) {
+                                return StatefulBuilder(
+                                  builder: (BuildContext context,
+                                      void Function(void Function()) setState) {
+                                    return Container(
+                                      height: 1000,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xffF3BEDC),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(30),
+                                              topRight: Radius.circular(30))),
+                                      child: ListView(
+                                        physics: BouncingScrollPhysics(),
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(15.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Center(
+                                                  child: Text(
+                                                    'Filters',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 40),
                                                   ),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            primary: Color(
-                                                                0xffFFE9F5),
-                                                            fixedSize:
-                                                                Size(170, 50),
-                                                            //  side: BorderSide(),
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50))),
-                                                    onPressed: () {
-                                                      setState(() {});
-                                                    },
-                                                    child: Text(
-                                                      'Apply',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Color(0xff2A1F23),
-                                                          fontSize: 20),
-                                                    ),
+                                                ),
+                                                TextField(
+                                                  decoration: InputDecoration(
+                                                    enabled: true,
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    labelText:
+                                                        'Mutual Interests',
+                                                    hintText: 'Boys',
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .always,
+                                                    labelStyle: TextStyle(
+                                                        color: textFieldColor,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    hintStyle: TextStyle(
+                                                        color: textFieldColor
+                                                            .withOpacity(0.8),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                ],
-                                              )
-                                            ],
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                Text(
+                                                  'Select Age',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  '${ageBetween.start.round().toString()} Years - ${ageBetween.end.round().toString()} Years',
+                                                  style: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.8),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                RangeSlider(
+                                                  activeColor: Colors.white,
+                                                  inactiveColor: Colors.white38,
+                                                  values: ageBetween,
+                                                  onChanged: (v) {
+                                                    setState(() {
+                                                      ageBetween = v;
+                                                    });
+                                                  },
+                                                  max: 50,
+                                                  min: 18,
+                                                  labels: RangeLabels(
+                                                    ageBetween.start
+                                                        .round()
+                                                        .toString(),
+                                                    ageBetween.end
+                                                        .round()
+                                                        .toString(),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                TextField(
+                                                  decoration: InputDecoration(
+                                                    enabled: true,
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    labelText:
+                                                        'Mutual Interests',
+                                                    hintText: 'Boys',
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .always,
+                                                    labelStyle: TextStyle(
+                                                        color: textFieldColor,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    hintStyle: TextStyle(
+                                                        color: textFieldColor
+                                                            .withOpacity(0.8),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                TextField(
+                                                  decoration: InputDecoration(
+                                                    enabled: true,
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    labelText:
+                                                        'Mutual Interests',
+                                                    hintText: 'Boys',
+                                                    floatingLabelBehavior:
+                                                        FloatingLabelBehavior
+                                                            .always,
+                                                    labelStyle: TextStyle(
+                                                        color: textFieldColor,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    hintStyle: TextStyle(
+                                                        color: textFieldColor
+                                                            .withOpacity(0.8),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                Text(
+                                                  'Select Distance',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  '${distanceRange.start.round().toString()} KM - ${distanceRange.end.round().toString()}KM',
+                                                  style: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.8),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                RangeSlider(
+                                                  inactiveColor: Colors.white38,
+                                                  activeColor: Colors.white,
+                                                  values: distanceRange,
+                                                  onChanged: (v) {
+                                                    setState(() {
+                                                      distanceRange = v;
+                                                    });
+                                                  },
+                                                  max: 200,
+                                                  min: 0,
+                                                  labels: RangeLabels(
+                                                    distanceRange.start
+                                                        .round()
+                                                        .toString(),
+                                                    distanceRange.end
+                                                        .round()
+                                                        .toString(),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              primary: Color(
+                                                                  0xffFFE9F5),
+                                                              fixedSize:
+                                                                  Size(150, 50),
+                                                              //  side: BorderSide(),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              50))),
+                                                      onPressed: () {
+                                                        setState(() {});
+                                                      },
+                                                      child: Text(
+                                                        'Reset',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff2A1F23),
+                                                            fontSize: 20),
+                                                      ),
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              primary: Color(
+                                                                  0xffFFE9F5),
+                                                              fixedSize:
+                                                                  Size(150, 50),
+                                                              //  side: BorderSide(),
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              50))),
+                                                      onPressed: () {
+                                                        setState(() {});
+                                                      },
+                                                      child: Text(
+                                                        'Apply',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff2A1F23),
+                                                            fontSize: 20),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 1,
+                                        spreadRadius: 1,
+                                        color: Colors.grey,
+                                        offset: Offset(1, 1))
+                                  ]),
+                              child: Icon(
+                                CupertinoIcons.slider_horizontal_3,
+                                size: 30,
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          notificationScreen()));
+                            });
+                          },
+                          child: Container(
+                              margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 1,
+                                        spreadRadius: 1,
+                                        color: Colors.grey,
+                                        offset: Offset(1, 1))
+                                  ]),
+                              child: Icon(
+                                Icons.notifications_none_outlined,
+                                size: 30,
+                              )),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 0,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: 40),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            //isCollapsed: true,
+                            contentPadding: EdgeInsets.all(10),
+
+                            filled: true,
+                            fillColor: Color(0xffF3BEDC),
+
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                )),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: 'Search Partner',
+                            hintStyle: TextStyle(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1,
-                                      spreadRadius: 1,
-                                      color: Colors.grey,
-                                      offset: Offset(1, 1))
-                                ]),
-                            child: Icon(
-                              CupertinoIcons.slider_horizontal_3,
-                              size: 30,
-                            )),
-                      ),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 1,
-                                    spreadRadius: 1,
-                                    color: Colors.grey,
-                                    offset: Offset(1, 1))
-                              ]),
-                          child: Icon(
-                            Icons.notifications_none_outlined,
-                            size: 30,
-                          ))
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        //isCollapsed: true,
-                        contentPadding: EdgeInsets.all(10),
-
-                        filled: true,
-                        fillColor: Color(0xffF3BEDC),
-
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                            )),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: 'Search Partner',
-                        hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color(0xff47004E26),
-                                blurRadius: 1,
-                                spreadRadius: 1,
-                                offset: Offset(2, 2))
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0xffF3BEDC),
-                        ),
-                        height: 45,
-                        width: 45,
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        )),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                margin: EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25)),
-                child: SwipeCards(
-                  matchEngine: _matchEngine,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Stack(
-                      children: [
-                        Container(
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0xff47004E26),
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  offset: Offset(2, 2))
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffF3BEDC),
+                          ),
+                          height: 40,
+                          width: 40,
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          )),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  height: 430,
+                  margin: EdgeInsets.all(0),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25)),
+                  child: SwipeCards(
+                    matchEngine: _matchEngine,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Stack(
+                        children: [
+                          Container(
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height * 0.7,
                             decoration: BoxDecoration(
@@ -413,147 +490,167 @@ class _homeScreenState extends State<homeScreen> {
                                 // color: _swipeItems[index].content.color,
                                 borderRadius: BorderRadius.circular(25)),
                             alignment: Alignment.topLeft,
-                            child: Container()),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: 210,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Colors.transparent,
-
-                                      Colors.black.withOpacity(0.5),
-                                      // Color(0xffC884BF).withOpacity(0.2),
-                                      // Color(0xffC884BF).withOpacity(0.4)
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter)),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 210,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  gradient: LinearGradient(
+                                      colors: [
+                                        Colors.transparent,
+
+                                        Colors.black.withOpacity(0.7),
+                                        // Color(0xffC884BF).withOpacity(0.2),
+                                        // Color(0xffC884BF).withOpacity(0.4)
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter)),
                             ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 210,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Name, ',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          'Age    ',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Icon(
+                                          Icons.verified_outlined,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          userInfoScreen()));
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.info,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      'Dancer, Friendly, Dancer, Friendly Dancer, Friendly, Lorem ipsum dolor sit amet consectetur adipisicing elit',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
                             child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Name, ',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        'Age    ',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Icon(
-                                        Icons.verified_outlined,
-                                        color: Colors.white,
-                                      ),
-                                      Icon(
-                                        Icons.info,
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ],
+                                  swipeCardBtns(
+                                    color: Color(0xffEECA59),
+                                    iconData: CupertinoIcons.refresh_bold,
+                                    onPressed: () {
+                                      setState(() {
+                                        _matchEngine.rewindMatch();
+                                      });
+                                    },
                                   ),
-                                  Text(
-                                    'Dancer, Friendly, Dancer, Friendly Dancer, Friendly, Lorem ipsum dolor sit amet consectetur adipisicing elit',
-                                    style: TextStyle(color: Colors.white),
+                                  swipeCardBtns(
+                                    contSize: 40,
+                                    iconSize: 25,
+                                    color: Color(0xffF54561),
+                                    iconData: Icons.close,
+                                    onPressed: () {
+                                      setState(() {
+                                        _matchEngine.currentItem?.nope();
+                                      });
+                                    },
+                                  ),
+                                  swipeCardBtns(
+                                    color: Color(0xff33BAEF),
+                                    iconData: Icons.star_rate,
+                                    onPressed: () {
+                                      setState(() {
+                                        _matchEngine.currentItem?.superLike();
+                                      });
+                                    },
+                                  ),
+                                  swipeCardBtns(
+                                    contSize: 40,
+                                    iconSize: 25,
+                                    color: Color(0xff1FDEB3),
+                                    iconData: Icons.favorite,
+                                    onPressed: () {
+                                      setState(() {
+                                        _matchEngine.currentItem?.like();
+                                      });
+                                    },
+                                  ),
+                                  swipeCardBtns(
+                                    color: Color(0xffAF43EE),
+                                    iconData: Icons.flash_on_sharp,
+                                    onPressed: () {
+                                      setState(() {
+                                        _matchEngine.currentItem?.nope();
+                                      });
+                                    },
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                swipeCardBtns(
-                                  color: Color(0xffEECA59),
-                                  iconData: Icons.refresh,
-                                  onPressed: () {
-                                    setState(() {
-                                      _matchEngine.rewindMatch();
-                                    });
-                                  },
-                                ),
-                                swipeCardBtns(
-                                  contSize: 40,
-                                  iconSize: 25,
-                                  color: Color(0xffF54561),
-                                  iconData: Icons.close,
-                                  onPressed: () {
-                                    setState(() {
-                                      _matchEngine.currentItem?.nope();
-                                    });
-                                  },
-                                ),
-                                swipeCardBtns(
-                                  color: Color(0xff33BAEF),
-                                  iconData: Icons.star_rate,
-                                  onPressed: () {
-                                    setState(() {
-                                      _matchEngine.currentItem?.superLike();
-                                    });
-                                  },
-                                ),
-                                swipeCardBtns(
-                                  contSize: 40,
-                                  iconSize: 25,
-                                  color: Color(0xff1FDEB3),
-                                  iconData: Icons.favorite,
-                                  onPressed: () {
-                                    setState(() {
-                                      _matchEngine.currentItem?.like();
-                                    });
-                                  },
-                                ),
-                                swipeCardBtns(
-                                  color: Color(0xffAF43EE),
-                                  iconData: Icons.flash_on_sharp,
-                                  onPressed: () {
-                                    setState(() {
-                                      _matchEngine.currentItem?.nope();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  onStackFinished: () {
-                    _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                      content: Text("Stack Finished"),
-                      duration: Duration(milliseconds: 500),
-                    ));
-                  },
+                        ],
+                      );
+                    },
+                    onStackFinished: () {
+                      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+                        content: Text("Stack Finished"),
+                        duration: Duration(milliseconds: 500),
+                      ));
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ));
+                SizedBox(
+                  height: 5,
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hitch/Screens/paymentHistoryScreen.dart';
 import 'package:hitch/constants/theme.dart';
 
 class profileScreen extends StatefulWidget {
@@ -266,7 +267,14 @@ class _profileScreenState extends State<profileScreen> {
             ),
             profileScreenUpdateBtn(
               title: 'Payment History',
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => paymentHistoryScreen()));
+                });
+              },
             ),
           ],
         ),

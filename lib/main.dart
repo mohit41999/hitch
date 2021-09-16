@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hitch/Screens/MobileVerification-1.dart';
+import 'package:hitch/constants/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+
+        accentColor: Colors.pinkAccent,
+        //primarySwatch: Colors.pink,
       ),
       home: mobileVerificationOne(),
     );

@@ -5,6 +5,7 @@ import 'package:hitch/Screens/chatScreen.dart';
 import 'package:hitch/Screens/homeScreen.dart';
 import 'package:hitch/Screens/profileScreen.dart';
 import 'package:hitch/Screens/profileSignUp.dart';
+import 'package:hitch/Screens/settingsScreen.dart';
 import 'package:hitch/Screens/verifyOtp.dart';
 import 'package:hitch/Screens/yourMatchesScreen.dart';
 import 'package:hitch/constants/theme.dart';
@@ -107,10 +108,36 @@ class _generalScreenState extends State<generalScreen> {
                           ),
                         ),
                         actions: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.more_vert),
-                            color: Colors.black,
+                          PopupMenuButton(
+                            initialValue: 0,
+                            child: Container(
+                              width: 40,
+                              child: Center(
+                                child: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            itemBuilder: (BuildContext context) {
+                              return List.generate(1, (index) {
+                                return PopupMenuItem(
+                                  child: GestureDetector(
+                                    child: Text('Settings'),
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    settingScreen()));
+                                      });
+                                    },
+                                  ),
+                                );
+                              });
+                            },
                           ),
                         ],
                       )
@@ -126,7 +153,7 @@ class _generalScreenState extends State<generalScreen> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 50,
+                  height: 45,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       boxShadow: [
