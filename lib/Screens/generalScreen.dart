@@ -7,7 +7,7 @@ import 'package:hitch/Screens/profileScreen.dart';
 import 'package:hitch/Screens/profileSignUp.dart';
 import 'package:hitch/Screens/settingsScreen.dart';
 import 'package:hitch/Screens/verifyOtp.dart';
-import 'package:hitch/Screens/yourMatchesScreen.dart';
+import 'package:hitch/Screens/myMatchesScreen.dart';
 import 'package:hitch/constants/theme.dart';
 
 class generalScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _generalScreenState extends State<generalScreen> {
 
   List<Widget> _pages() => <Widget>[
         homeScreen(),
-        yourMatchesScreen(),
+        myMatchesScreen(),
         chatScreen(),
         profileScreen(),
         // profileSignUpScreen(),
@@ -153,7 +153,7 @@ class _generalScreenState extends State<generalScreen> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 45,
+                  height: 40,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -174,7 +174,13 @@ class _generalScreenState extends State<generalScreen> {
                             _selectedIndex = 0;
                           });
                         },
-                        icon: Icon(Icons.home_outlined, color: IconColor),
+                        icon: Icon(
+                          (_selectedIndex == 0)
+                              ? Icons.home
+                              : Icons.home_outlined,
+                          color: IconColor,
+                          size: (_selectedIndex == 0) ? 30 : 20,
+                        ),
                       ),
                       IconButton(
                         onPressed: () {
@@ -183,8 +189,11 @@ class _generalScreenState extends State<generalScreen> {
                           });
                         },
                         icon: Icon(
-                          Icons.favorite_border,
+                          (_selectedIndex == 1)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           color: IconColor,
+                          size: (_selectedIndex == 1) ? 35 : 20,
                         ),
                       ),
                       IconButton(
@@ -193,7 +202,13 @@ class _generalScreenState extends State<generalScreen> {
                             _selectedIndex = 2;
                           });
                         },
-                        icon: Icon(Icons.chat, color: IconColor),
+                        icon: Icon(
+                          (_selectedIndex == 2)
+                              ? Icons.chat_bubble
+                              : Icons.chat_bubble_outline,
+                          color: IconColor,
+                          size: (_selectedIndex == 2) ? 30 : 20,
+                        ),
                       ),
                       IconButton(
                         onPressed: () {
@@ -201,8 +216,13 @@ class _generalScreenState extends State<generalScreen> {
                             _selectedIndex = 3;
                           });
                         },
-                        icon: Icon(Icons.person_outline_rounded,
-                            color: IconColor),
+                        icon: Icon(
+                          (_selectedIndex == 3)
+                              ? Icons.person
+                              : Icons.person_outline_rounded,
+                          color: IconColor,
+                          size: (_selectedIndex == 3) ? 30 : 20,
+                        ),
                       ),
                     ],
                   ),

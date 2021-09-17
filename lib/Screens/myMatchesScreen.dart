@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hitch/Screens/userMatchedScreen.dart';
 import 'package:hitch/constants/theme.dart';
 
-class yourMatchesScreen extends StatelessWidget {
-  const yourMatchesScreen({Key? key}) : super(key: key);
+class myMatchesScreen extends StatelessWidget {
+  const myMatchesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,18 @@ class yourMatchesScreen extends StatelessWidget {
                           color: Colors.black,
                         )
                       : Container(),
-                  ListTile(
-                    leading: CircleAvatar(),
-                    title: Text('You maches with Misellia '),
-                    subtitle: Text('You have maches with Misellia...'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => userMatchedScreen()));
+                    },
+                    child: ListTile(
+                      leading: CircleAvatar(),
+                      title: Text('You maches with Misellia '),
+                      subtitle: Text('You have maches with Misellia...'),
+                    ),
                   ),
                   Divider(
                     color: Colors.black,

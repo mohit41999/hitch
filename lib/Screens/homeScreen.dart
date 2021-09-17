@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hitch/Screens/userInfoPage.dart';
 import 'package:hitch/constants/theme.dart';
+import 'package:hitch/widgets/swipeCardBtn.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
@@ -651,69 +652,6 @@ class _homeScreenState extends State<homeScreen> {
             ),
           )),
     );
-  }
-}
-
-class swipeCardBtns extends StatefulWidget {
-  final Color color;
-  final IconData iconData;
-  final double contSize;
-  final double iconSize;
-
-  final Function onPressed;
-
-  const swipeCardBtns({
-    Key? key,
-    required this.color,
-    required this.onPressed,
-    required this.iconData,
-    this.contSize = 30,
-    this.iconSize = 20,
-  }) : super(key: key);
-
-  @override
-  _swipeCardBtnsState createState() => _swipeCardBtnsState();
-}
-
-class _swipeCardBtnsState extends State<swipeCardBtns> {
-  Color contColor = Colors.transparent;
-  bool iconcolor = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onLongPress: () {
-          setState(() {
-            contColor = widget.color;
-            iconcolor = true;
-            // widget.onPressed();
-          });
-        },
-        onLongPressEnd: (value) {
-          setState(() {
-            // contColor = Colors.transparent;
-            // iconcolor = false;
-            widget.onPressed();
-          });
-        },
-        onTap: () {
-          widget.onPressed();
-          contColor = widget.color;
-          iconcolor = true;
-        },
-        child: Container(
-          height: widget.contSize,
-          width: widget.contSize,
-          decoration: BoxDecoration(
-              color: contColor,
-              borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: widget.color, width: 1)),
-          child: Center(
-            child: Icon(widget.iconData,
-                size: widget.iconSize,
-                color: (iconcolor) ? Colors.white : widget.color),
-          ),
-        ));
   }
 }
 

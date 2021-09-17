@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hitch/Screens/membershipScreen.dart';
 import 'package:hitch/Screens/paymentHistoryScreen.dart';
 import 'package:hitch/constants/theme.dart';
 
@@ -260,7 +261,14 @@ class _profileScreenState extends State<profileScreen> {
             ),
             profileScreenUpdateBtn(
               title: 'Upgrade Membership',
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => memberShipScreen()));
+                });
+              },
             ),
             SizedBox(
               height: 10,
